@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useTheme } from "@/app/components/theme-provider"
+import { useTheme } from "app/components/theme-provider"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
 
 const Toaster = ({ ...props }: ToasterProps) => {
