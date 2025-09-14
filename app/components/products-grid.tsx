@@ -5,8 +5,9 @@ import { Loader2 } from "lucide-react"
 import { useState } from "react"
 import { IProduct } from "@/src/interfaces/IProduct"
 import { Product } from "@/components/product"
+import {IMeta} from "@/src/interfaces/IMeta";
 
-export function ProductsGrid({ products }: { products: IProduct[] }) {
+export function ProductsGrid({ products, meta }: { products: IProduct[],  meta: IMeta } ) {
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
   const handleLoadMore = async () => {
@@ -26,7 +27,7 @@ export function ProductsGrid({ products }: { products: IProduct[] }) {
     <div className="space-y-6">
       {/* Results Header */}
       <div className="flex items-center justify-between">
-        <p className="text-muted-foreground">Showing {products.length} of 247 products</p>
+        <p className="text-muted-foreground">Showing {products.length} of {meta.total} products</p>
         <select className="border border-border rounded-md px-3 py-2 text-sm bg-background">
           <option>Sort by: Featured</option>
           <option>Price: Low to High</option>

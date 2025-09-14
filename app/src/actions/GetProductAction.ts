@@ -7,7 +7,6 @@ export const useProduct = (productExternalId: string) => {
     const fetchProduct = async () => {
         return await http().get(`/v1/products/${productExternalId}`);
     }
-
     const {data, isLoading, error} = useQuery({
         queryKey: ['product', productExternalId],
         queryFn: fetchProduct

@@ -40,7 +40,7 @@ export function Hero() {
                             </div>
                             <div className="text-center">
                                 <div className="text-2xl font-bold text-primary">24/7 Support</div>
-                                <div className="text-sm text-muted-foreground">+233 501376828</div>
+                                <div className="text-sm text-muted-foreground">+233 50 720 5895</div>
                             </div>
                             <div className="text-center">
                                 <div className="text-2xl font-bold text-primary">Fast</div>

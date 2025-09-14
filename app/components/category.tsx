@@ -10,6 +10,8 @@ export function Category({ categories, IconComponent }: CategoryProps) {
    return ( <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {categories.map((category: ICategory) => {
 
+            const categoryName = category.name.toLowerCase().replace(/\s+/g, "-");
+
             return (
                 <Card key={category.externalId}
                       className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
@@ -59,7 +61,7 @@ export function Category({ categories, IconComponent }: CategoryProps) {
                                 </div>
                             </div>
                             <Link
-                                href={`/products?category=${category.name.toLowerCase().replace(/\s+/g, "-")}`}>
+                                href={`/products?filters=[{"field":"categoryName", "operator":"=", "value":"${categoryName}"}]`}>
                                 <Button
                                     className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                                     Browse {category.name}

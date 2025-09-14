@@ -8,7 +8,11 @@ import {Input} from "@/components/ui/input"
 import {useProducts} from "@/src/actions/GetProductsAction"
 
 export default function ProductsPage() {
-    const {products, isLoading, error} = useProducts()
+
+    const params = new URLSearchParams(window.location.search)
+    const filters = params.has('filters') ? 'filters=' + params.get('filters') : '';
+
+    const {products, isLoading, error, meta} = useProducts(50, filters)
     return (
         <div className="min-h-screen bg-background">
             <Header/>
@@ -50,7 +54,7 @@ export default function ProductsPage() {
                         ) : error ? (
                             <div className="text-red-500">Failed to load products</div>
                         ) : (
-                            <ProductsGrid products={products}/>
+                            <ProductsGrid products={products} meta={meta}/>
                         )}
                     </div>
                 </div>
