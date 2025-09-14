@@ -45,7 +45,7 @@ export default function CartPage() {
       : 0
 
   const shipping = subtotal > 500 ? 0 : 25
-  const tax = subtotal * 0.08
+  const tax = subtotal * 0.0
   const total = subtotal + shipping + tax
 
   return (
@@ -120,9 +120,9 @@ export default function CartPage() {
                           </div>
                           <div className="text-right">
                             <p className="font-semibold text-lg">
-                              ${((item.price || 0) * (item.quantity || 0)).toFixed(2)}
+                              GHS {((item.price || 0) * (item.quantity || 0)).toFixed(2)}
                             </p>
-                            <p className="text-sm text-muted-foreground">${(item.price || 0).toFixed(2)} each</p>
+                            <p className="text-sm text-muted-foreground">GHS {(item.price || 0).toFixed(2)} each</p>
                           </div>
                         </div>
                       </div>
@@ -141,24 +141,24 @@ export default function CartPage() {
                 <CardContent className="space-y-4">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                    <span>GHS {subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Shipping</span>
-                    <span>{shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}</span>
+                    <span>{shipping === 0 ? "Free" : `GHS GHS {shipping.toFixed(2)}`}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Tax</span>
-                    <span>${tax.toFixed(2)}</span>
+                    <span>GHS {tax.toFixed(2)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-semibold text-lg">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>GHS {total.toFixed(2)}</span>
                   </div>
                   {subtotal < 500 && (
                     <p className="text-sm text-muted-foreground">
-                      Add ${(500 - subtotal).toFixed(2)} more for free shipping
+                      Add GHS {(500 - subtotal).toFixed(2)} more for free shipping
                     </p>
                   )}
                 </CardContent>

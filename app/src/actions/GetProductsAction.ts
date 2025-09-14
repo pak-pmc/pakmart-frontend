@@ -3,9 +3,9 @@ import {useQuery} from "@tanstack/react-query";
 import {response} from "@/src/utils/helpers";
 import type {IProduct} from "@/src/interfaces/IProduct";
 
-export const useProducts = (perPage: number = 50) => {
+export const useProducts = (perPage: number = 50, otherQueryParams:string = '') => {
     const fetchProducts = async () => {
-        return await http().get(`/v1/products?perPage=${perPage}`);
+        return await http().get(`/v1/products?perPage=${perPage}&${otherQueryParams}`);
     }
 
     const {data, isLoading, error} = useQuery({

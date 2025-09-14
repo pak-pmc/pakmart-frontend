@@ -8,12 +8,12 @@ export function setAuthUser(user: IUser): void {
     }
 }
 
-export function getAuthUser(): IUser | null {
+export function getAuthUser(): IUser | undefined {
     if (typeof window !== 'undefined') {
         const storedUser = localStorage.getItem(AUTH_STORAGE_KEY);
-        return storedUser ? JSON.parse(storedUser) : null;
+        return storedUser ? JSON.parse(storedUser) : undefined;
     }
-    return null;
+    return undefined;
 }
 
 export function removeAuthUser(): void {
@@ -22,9 +22,9 @@ export function removeAuthUser(): void {
     }
 }
 
-export function getAuthToken(): string | null {
+export function getAuthToken(): string |undefined {
     const user = getAuthUser();
-    return user ? user.token : null;
+    return user ? user?.token : undefined ;
 }
 
 export function response<T = any>(httpResponse: any): { success: boolean; message: string; data: T; meta: any } {

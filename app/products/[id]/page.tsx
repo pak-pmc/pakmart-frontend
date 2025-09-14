@@ -2,81 +2,40 @@
 
 import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Star, ShoppingCart, Heart, Share2, Truck, Shield, RotateCcw } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useCart } from "@/contexts/cart-context"
-
-const getProduct = (id: string) => {
-  const products = [
-    {
-      id: 1,
-      name: "Grundfos Submersible Water Pump",
-      price: 459.99,
-      originalPrice: 529.99,
-      rating: 4.8,
-      reviews: 124,
-      category: "Water Pumps",
-      image: "/submersible-water-pump.png",
-      badge: "Best Seller",
-      description:
-        "Professional-grade submersible water pump designed for heavy-duty applications. Features corrosion-resistant materials and energy-efficient motor technology.",
-      specifications: {
-        "Motor Power": "1.5 HP",
-        "Flow Rate": "3500 GPH",
-        "Max Head": "120 ft",
-        "Inlet Size": "2 inches",
-        Material: "Cast Iron with Stainless Steel",
-        Warranty: "3 Years",
-      },
-      features: [
-        "Corrosion-resistant cast iron construction",
-        "Energy-efficient motor design",
-        "Thermal overload protection",
-        "Easy installation and maintenance",
-        "Suitable for clean water applications",
-      ],
-    },
-    {
-      id: 2,
-      name: "Centrifugal Water Pump",
-      price: 329.99,
-      originalPrice: 379.99,
-      rating: 4.6,
-      reviews: 78,
-      category: "Water Pumps",
-      image: "/centrifugal-water-pump.png",
-      badge: "Sale",
-      description:
-        "High-performance centrifugal water pump ideal for irrigation, drainage, and general water transfer applications. Built with durable materials for long-lasting performance.",
-      specifications: {
-        "Motor Power": "1 HP",
-        "Flow Rate": "2800 GPH",
-        "Max Head": "95 ft",
-        "Inlet Size": "1.5 inches",
-        Material: "Stainless Steel Impeller",
-        Warranty: "2 Years",
-      },
-      features: [
-        "Stainless steel impeller for durability",
-        "Self-priming design",
-        "Low maintenance requirements",
-        "Compact and lightweight",
-        "Suitable for various water transfer needs",
-      ],
-    },
-  ]
-
-  return products.find((p) => p.id === Number.parseInt(id))
-}
+import { useProduct } from "@/src/actions/GetProductAction"
+import {shareProduct} from "@/src/actions/ProductShareAction";
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  const product = getProduct(params.id)
-  const { addItem } = useCart()
+  const externalId = params.id
+  const { product, isLoading, error } = useProduct(externalId)
+  const { addItem } = useCart();
 
-  if (!product) {
+  const handleShare = async () => {
+      if (product?.images) {
+          await shareProduct({
+              product: {name: product.name, url: window.location.href},
+              imageUrl: product?.images[0].fileUrl || ''
+          })
+      }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="container mx-auto px-4 py-16 text-center">
+          <h1 className="text-2xl font-bold mb-4">Loading product...</h1>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !product || !('externalId' in product)) {
     return (
       <div className="min-h-screen bg-background">
         <Header />
@@ -90,14 +49,18 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
     )
   }
 
+  const displayPrice = product.discountedPrice ?? product.unitPrice
+  const originalPrice = product.discountedPrice ? product.unitPrice : undefined
+  const imageUrl = product.images && product.images.length > 0 ? product.images[0].fileUrl : ""
+
   const handleAddToCart = () => {
     addItem({
-      id: product.id,
+      externalId: product.externalId,
       name: product.name,
-      price: product.price,
-      image: product.image,
-      category: product.category,
-    })
+      price: displayPrice,
+      image: imageUrl,
+      category: product.categoryName,
+    } as any)
   }
 
   return (
@@ -122,51 +85,43 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           {/* Product Images */}
           <div className="space-y-4">
             <div className="relative">
-              <Image
-                src={product.image || "/placeholder.svg"}
+              <img
+                src={imageUrl}
                 alt={product.name}
                 width={600}
                 height={600}
                 className="w-full h-96 object-cover rounded-lg"
               />
-              {product.badge && (
-                <Badge
-                  className="absolute top-4 left-4"
-                  variant={product.badge === "Sale" ? "destructive" : "secondary"}
-                >
-                  {product.badge}
-                </Badge>
-              )}
             </div>
           </div>
 
           {/* Product Info */}
           <div className="space-y-6">
             <div>
-              <p className="text-sm text-muted-foreground mb-2">{product.category}</p>
+              <p className="text-sm text-muted-foreground mb-2">{product.categoryName}</p>
               <h1 className="text-3xl font-bold text-foreground mb-4">{product.name}</h1>
 
               {/* Rating */}
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-5 w-5 ${
-                        i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-sm font-medium">{product.rating}</span>
-                <span className="text-sm text-muted-foreground">({product.reviews} reviews)</span>
-              </div>
+              {/*<div className="flex items-center space-x-2 mb-4">*/}
+              {/*  <div className="flex">*/}
+              {/*    {[...Array(5)].map((_, i) => (*/}
+              {/*      <Star*/}
+              {/*        key={i}*/}
+              {/*        className={`h-5 w-5 ${*/}
+              {/*          i < Math.floor(product.rating ?? 0) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"*/}
+              {/*        }`}*/}
+              {/*      />*/}
+              {/*    ))}*/}
+              {/*  </div>*/}
+              {/*  <span className="text-sm font-medium">{product.rating ?? 0}</span>*/}
+              {/*  <span className="text-sm text-muted-foreground">({product.reviewCount ?? 0} reviews)</span>*/}
+              {/*</div>*/}
 
               {/* Price */}
               <div className="flex items-center space-x-3 mb-6">
-                <span className="text-3xl font-bold text-primary">${product.price}</span>
-                {product.originalPrice && (
-                  <span className="text-xl text-muted-foreground line-through">${product.originalPrice}</span>
+                <span className="text-3xl font-bold text-primary">${displayPrice}</span>
+                {originalPrice !== undefined && (
+                  <span className="text-xl text-muted-foreground line-through">${originalPrice}</span>
                 )}
               </div>
             </div>
@@ -196,10 +151,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 <ShoppingCart className="h-5 w-5 mr-2" />
                 Add to Cart
               </Button>
-              <Button variant="outline" size="lg">
-                <Heart className="h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="lg">
+              {/*<Button variant="outline" size="lg">*/}
+              {/*  <Heart className="h-5 w-5" />*/}
+              {/*</Button>*/}
+              <Button variant="outline" size="lg" onClick={handleShare}>
                 <Share2 className="h-5 w-5" />
               </Button>
             </div>
@@ -214,7 +169,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   </div>
                   <div className="flex items-center gap-3">
                     <Shield className="h-5 w-5 text-primary" />
-                    <span className="text-sm">{product.specifications.Warranty} manufacturer warranty</span>
+                    <span className="text-sm">Manufacturer warranty</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <RotateCcw className="h-5 w-5 text-primary" />
@@ -232,12 +187,20 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <Card>
             <CardContent className="p-6">
               <div className="grid md:grid-cols-2 gap-4">
-                {Object.entries(product.specifications).map(([key, value]) => (
-                  <div key={key} className="flex justify-between py-2">
-                    <span className="font-medium">{key}:</span>
-                    <span className="text-muted-foreground">{value}</span>
-                  </div>
-                ))}
+                {Array.isArray(product.specifications) ? (
+                  product.specifications.map((spec, idx) => (
+                    <div key={idx} className="flex justify-between py-2">
+                      <span className="text-muted-foreground">{spec}</span>
+                    </div>
+                  ))
+                ) : (
+                  Object.entries(product.specifications as any).map(([key, value]) => (
+                    <div key={key} className="flex justify-between py-2">
+                      <span className="font-medium">{key}:</span>
+                      <span className="text-muted-foreground">{String(value)}</span>
+                    </div>
+                  ))
+                )}
               </div>
             </CardContent>
           </Card>

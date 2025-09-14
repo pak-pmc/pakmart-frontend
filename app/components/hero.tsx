@@ -52,7 +52,7 @@ export function Hero() {
                     <div className="relative">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                            src="../"
+                            src="https://www.pakpmc.com/img/water-treatment.jpg"
                             alt="Construction materials and equipment"
                             className="rounded-lg shadow-2xl"
                         />
