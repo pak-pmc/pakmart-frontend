@@ -43,7 +43,7 @@ export default function SignupPage() {
           <Card>
             <CardHeader className="text-center">
               <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
-              <CardDescription>Join BuildMart and start shopping for construction materials</CardDescription>
+              <CardDescription>Join PakMart and start shopping for construction materials</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">

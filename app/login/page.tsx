@@ -37,7 +37,7 @@ export default function LoginPage() {
           <Card>
             <CardHeader className="text-center">
               <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-              <CardDescription>Sign in to your BuildMart account</CardDescription>
+              <CardDescription>Sign in to your PakMart account</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">

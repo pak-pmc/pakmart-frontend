@@ -12,7 +12,7 @@ export default function AboutPage() {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">About BuildMart</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">About PakMart</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
             Your trusted partner for quality construction materials. We have been serving contractors, builders, and DIY
             enthusiasts with professional-grade supplies since 2010.
@@ -26,7 +26,7 @@ export default function AboutPage() {
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
                 Founded in 2010 by experienced contractors who understood the challenges of sourcing reliable
-                construction materials, BuildMart began as a small local supplier with a simple mission: provide quality
+                construction materials, PakMart began as a small local supplier with a simple mission: provide quality
                 materials at fair prices with exceptional service.
               </p>
               <p>
@@ -35,7 +35,7 @@ export default function AboutPage() {
                 matters, whether it is a small home repair or a large commercial construction.
               </p>
               <p>
-                Today, BuildMart serves thousands of contractors, builders, and homeowners across the region, offering
+                Today, PakMart serves thousands of contractors, builders, and homeowners across the region, offering
                 everything from basic plumbing fixtures to specialized industrial equipment.
               </p>
             </div>
@@ -44,7 +44,7 @@ export default function AboutPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/modern-construction-warehouse-with-organized-mater.png"
-              alt="BuildMart warehouse facility"
+              alt="PakMart warehouse facility"
               className="w-full h-64 object-cover rounded-lg"
             />
           </div>
