@@ -15,7 +15,7 @@ export default function ContactPage() {
                 {/* Hero Section */}
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">Contact
-                        BuildMart</h1>
+                        PakMart</h1>
                     <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
                         Get in touch with our construction materials experts. We are here to help you find the right
                         products for
@@ -122,7 +122,7 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                                        <p className="text-muted-foreground">info@buildmart.com</p>
+                                        <p className="text-muted-foreground">info@pakpmc.com</p>
                                         <p className="text-sm text-muted-foreground">We respond within 24 hours</p>
                                     </div>
                                 </div>
@@ -133,8 +133,8 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-foreground mb-1">Address</h3>
-                                        <p className="text-muted-foreground">123 Construction Ave</p>
-                                        <p className="text-muted-foreground">Builder City, BC 12345</p>
+                                        <p className="text-muted-foreground">Accra</p>
+                                        <p className="text-muted-foreground">Accra Ghana`</p>
                                     </div>
                                 </div>
 
