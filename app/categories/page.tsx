@@ -2,7 +2,6 @@
 
 import {Header} from "@/components/header"
 import {Button} from "@/components/ui/button"
-import {Package} from "lucide-react"
 import Link from "next/link"
 import {useCategories} from "@/src/actions/GetCategoriesAction";
 import {Category} from "@/components/category"
@@ -20,12 +19,12 @@ export default function CategoriesPage() {
         <div className="min-h-screen bg-background">
             <Header/>
 
-            <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
                 {/* Page Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 text-balance">Product
+                <div className="text-center mb-10 sm:mb-12">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4 text-balance">Product
                         Categories</h1>
-                    <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-pretty">
+                    <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto text-pretty">
                         Browse our comprehensive range of construction materials organized by category. Find everything
                         you need for
                         your building projects from trusted brands.
@@ -34,11 +33,11 @@ export default function CategoriesPage() {
                 {isLoading && <p>Loading..</p>}
                 {/* Categories Grid */}
                 {!isLoading && !error && (
-                    <Category categories={categories || []} IconComponent={Package} />
+                    <Category categories={categories || []} descriptionLength={15}/>
                 )}
 
                 {/* Call to Action */}
-                <div className="text-center mt-16 p-8 bg-muted rounded-lg">
+                <div className="text-center mt-14 sm:mt-16 p-6 sm:p-8 bg-muted rounded-lg">
                     <h2 className="text-2xl font-bold text-foreground mb-4">Cannot Find What You are Looking For?</h2>
                     <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
                         Our team of construction experts is here to help you find the right materials for your project.

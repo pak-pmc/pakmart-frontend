@@ -2,12 +2,13 @@ import type {ICategory} from "@/src/interfaces/ICategory";
 import {Card, CardContent} from "@/components/ui/card";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
+import {truncateWords} from "@/src/utils/helpers";
 
-type CategoryProps = { categories: ICategory[]; IconComponent: any }
+type CategoryProps = { categories: ICategory[], descriptionLength: number}
 
-export function Category({ categories, IconComponent }: CategoryProps) {
+export function Category({ categories, descriptionLength = 8}: CategoryProps) {
 
-   return ( <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+   return ( <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
         {categories.map((category: ICategory) => {
 
             const categoryName = category.name.toLowerCase().replace(/\s+/g, "-");
@@ -17,7 +18,7 @@ export function Category({ categories, IconComponent }: CategoryProps) {
                       className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
                     <CardContent className="p-0">
                         {/* Category Image */}
-                        <div className="relative h-48 overflow-hidden">
+                        <div className="relative h-36 sm:h-44 md:h-48 overflow-hidden">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src={category.imageUrl || ""}
@@ -25,22 +26,18 @@ export function Category({ categories, IconComponent }: CategoryProps) {
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                             <div
-                                className="absolute top-4 left-4 bg-secondary text-secondary-foreground p-3 rounded-lg shadow-lg">
-                                <IconComponent className="h-6 w-6"/>
-                            </div>
-                            <div
                                 className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
                                 {(category.productCount ?? 0)} items
                             </div>
                         </div>
 
                         {/* Category Content */}
-                        <div className="p-6 space-y-4">
+                        <div className="p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4">
                             <div>
-                                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-2">
+                                <h3 className="text-md sm:text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-2">
                                     {category.name}
                                 </h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed">{category.description}</p>
+                                <p className="text-muted-foreground text-sm">{truncateWords(category.description, descriptionLength)}</p>
                             </div>
 
                             {/* Subcategories */}
@@ -53,7 +50,7 @@ export function Category({ categories, IconComponent }: CategoryProps) {
                                           {sub.name}
                                         </span>
                                     ))}
-                                    {category.subCategories.length > 4 && (
+                                    {category.subCategories.length > 2 && (
                                         <span className="text-xs text-muted-foreground px-2 py-1">
                                           +{category.subCategories.length - 4} more
                                         </span>
@@ -64,7 +61,7 @@ export function Category({ categories, IconComponent }: CategoryProps) {
                                 href={`/products?filters=[{"field":"categoryName", "operator":"=", "value":"${categoryName}"}]`}>
                                 <Button
                                     className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                                    Browse {category.name}
+                                    Browse
                                 </Button>
                             </Link>
 

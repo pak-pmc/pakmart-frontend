@@ -9,10 +9,10 @@ export function Hero() {
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-8">
                         <div className="space-y-4">
-                            <h1 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight text-balance">
+                            <h1 className="text-2xl lg:text-5xl font-bold text-foreground leading-tight text-balance">
                                 Build with Quality & Style
                             </h1>
-                            <p className="text-xl text-muted-foreground leading-relaxed text-pretty">
+                            <p className="text-md text-muted-foreground leading-relaxed text-pretty">
                                 From water pumps to premium fixtures, we supply contractors and builders with reliable,
                                 professional-grade materials at competitive prices.
                             </p>
@@ -35,15 +35,15 @@ export function Hero() {
 
                         <div className="grid grid-cols-3 gap-8 pt-8">
                             <div className="text-center">
-                                <div className="text-2xl font-bold text-primary">500+</div>
+                                <div className="text-1xl font-bold text-primary">500+</div>
                                 <div className="text-sm text-muted-foreground">Products</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-2xl font-bold text-primary">24/7 Support</div>
+                                <div className="text-1xl font-bold text-primary">24/7 Support</div>
                                 <div className="text-sm text-muted-foreground">+233 50 720 5895</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-2xl font-bold text-primary">Fast</div>
+                                <div className="text-1xl font-bold text-primary">Fast</div>
                                 <div className="text-sm text-muted-foreground">Delivery</div>
                             </div>
                         </div>

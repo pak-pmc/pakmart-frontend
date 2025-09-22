@@ -7,7 +7,6 @@ import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {Textarea} from "@/components/ui/textarea"
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {FileText, Send} from "lucide-react"
 import {ICustomQuotation} from "@/src/interfaces/ICustomQuotation"
 import {useSendQuotationAction} from "@/src/actions/SendQuotationAction"
@@ -73,7 +72,7 @@ export function QuotationForm() {
                                             id="fullName"
                                             value={formData.fullName}
                                             onChange={(e) => handleInputChange("fullName", e.target.value)}
-                                            placeholder="John Smith"
+                                            placeholder="Ama Ghana"
                                             required
                                         />
                                     </div>
@@ -86,7 +85,7 @@ export function QuotationForm() {
                                             type="email"
                                             value={formData.email}
                                             onChange={(e) => handleInputChange("email", e.target.value)}
-                                            placeholder="john@example.com"
+                                            placeholder="mama@example.com"
                                             required
                                         />
                                     </div>
@@ -102,7 +101,7 @@ export function QuotationForm() {
                                             type="tel"
                                             value={formData.phone}
                                             onChange={(e) => handleInputChange("phone", e.target.value)}
-                                            placeholder="+1 (555) 123-4567"
+                                            placeholder="0245 123 4567"
                                             required
                                         />
                                     </div>
