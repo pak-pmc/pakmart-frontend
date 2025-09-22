@@ -36,3 +36,11 @@ export function response<T = any>(httpResponse: any): { success: boolean; messag
         meta: data?.meta,
     }
 }
+
+export function truncateWords(text: string, wordLimit: number): string {
+    const words = text.split(/\s+/);
+    if (words.length <= wordLimit) {
+        return text;
+    }
+    return words.slice(0, wordLimit).join(" ") + "...";
+}

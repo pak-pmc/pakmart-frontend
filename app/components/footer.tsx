@@ -41,7 +41,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-6 pt-4 text-center">
-          <p className="text-primary-foreground/60 text-xs">© 2024 PakMart. All rights reserved.</p>
+          <p className="text-primary-foreground/60 text-xs">© {new Date().getFullYear()} PakMart. All rights reserved.</p>
         </div>
       </div>
     </footer>
