@@ -3,8 +3,7 @@
 import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Star, ShoppingCart, Heart, Share2, Truck, Shield, RotateCcw } from "lucide-react"
-import Image from "next/image"
+import { ShoppingCart, Share2, Truck, Shield } from "lucide-react"
 import Link from "next/link"
 import { useCart } from "@/contexts/cart-context"
 import { useProduct } from "@/src/actions/GetProductAction"
@@ -165,16 +164,16 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <Truck className="h-5 w-5 text-primary" />
-                    <span className="text-sm">Free shipping on orders over $100</span>
+                    <span className="text-sm">Free Delivery on orders over GHS 5, 000</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Shield className="h-5 w-5 text-primary" />
                     <span className="text-sm">Manufacturer warranty</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <RotateCcw className="h-5 w-5 text-primary" />
-                    <span className="text-sm">30-day return policy</span>
-                  </div>
+                  {/*<div className="flex items-center gap-3">*/}
+                  {/*  <RotateCcw className="h-5 w-5 text-primary" />*/}
+                  {/*  <span className="text-sm">30-day return policy</span>*/}
+                  {/*</div>*/}
                 </div>
               </CardContent>
             </Card>

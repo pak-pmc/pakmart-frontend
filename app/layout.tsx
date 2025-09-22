@@ -11,8 +11,8 @@ import { Suspense } from "react"
 import {ReactQueryProvider} from "@/src/providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
-  title: "Ecommerce",
-  description: "Created with v0",
+  title: "PakMart",
+  description: "Build with Quality and Style",
   generator: "Cryptech Links",
 }
 
