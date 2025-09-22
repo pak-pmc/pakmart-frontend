@@ -49,7 +49,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   }
 
   const displayPrice = product.discountedPrice ?? product.unitPrice
-  const originalPrice = product.discountedPrice ? product.unitPrice : undefined
+  // const originalPrice = product.discountedPrice ? product.unitPrice : undefined
   const imageUrl = product.images && product.images.length > 0 ? product.images[0].fileUrl : ""
 
   const handleAddToCart = () => {
@@ -118,10 +118,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
               {/* Price */}
               <div className="flex items-center space-x-3 mb-6">
-                <span className="text-3xl font-bold text-primary">${displayPrice}</span>
-                {originalPrice !== undefined && (
-                  <span className="text-xl text-muted-foreground line-through">${originalPrice}</span>
-                )}
+                <span className="text-3xl font-bold text-primary">GHS {displayPrice}</span>
+                {/*{originalPrice !== null && (*/}
+                {/*  <span className="text-xl text-muted-foreground line-through">{originalPrice}</span>*/}
+                {/*)}*/}
               </div>
             </div>
 
