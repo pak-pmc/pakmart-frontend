@@ -105,7 +105,7 @@ export default function ProductsPage() {
                 </div>
             </div>
 
-            <div className="text-center pt-8">
+            <div className="text-center pt-10 pb-8">
                 <Button
                     variant="outline"
                     size="lg"
@@ -123,6 +123,8 @@ export default function ProductsPage() {
                 </Button>
             </div>
 
+
         </div>
+
     )
 }

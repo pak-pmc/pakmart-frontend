@@ -18,7 +18,7 @@ export function Category({ categories, descriptionLength = 8}: CategoryProps) {
                       className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
                     <CardContent className="p-0">
                         {/* Category Image */}
-                        <div className="relative h-36 sm:h-44 md:h-48 overflow-hidden">
+                        <div className="relative h-36 sm:h-44 md:h-48 overflow-hidden rounded-t-lg">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src={category.imageUrl || ""}
@@ -34,7 +34,7 @@ export function Category({ categories, descriptionLength = 8}: CategoryProps) {
                         {/* Category Content */}
                         <div className="p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4">
                             <div>
-                                <h3 className="text-md sm:text-xl font-bold text-foreground group-hover:text-primary transition-colors mb-2">
+                                <h3 className="text-md sm:text-md font-bold text-foreground group-hover:text-primary transition-colors mb-2">
                                     {category.name}
                                 </h3>
                                 <p className="text-muted-foreground text-sm">{truncateWords(category.description, descriptionLength)}</p>
