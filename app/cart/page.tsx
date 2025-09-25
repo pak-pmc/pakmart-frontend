@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import { Minus, Plus, Trash2, CreditCard, Truck } from "lucide-react"
+import { Minus, Plus, Trash2, Truck } from "lucide-react"
 import Image from "next/image"
 
 export default function CartPage() {
@@ -54,14 +54,14 @@ export default function CartPage() {
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Shopping Cart</h1>
+          <h1 className="text-1.5xl font-bold text-foreground mb-2">Shopping Cart</h1>
           <p className="text-muted-foreground">Review your items and complete your order</p>
         </div>
 
         {cartItems.length === 0 ? (
           <Card className="text-center py-12">
             <CardContent>
-              <h2 className="text-xl font-semibold mb-4">Your cart is empty</h2>
+              <h2 className="text-1xl font-semibold mb-4">Your cart is empty</h2>
               <p className="text-muted-foreground mb-6">Add some construction materials to get started</p>
               <Button asChild>
                 <Link href="/products">Continue Shopping</Link>
@@ -74,7 +74,7 @@ export default function CartPage() {
             <div className="lg:col-span-2 space-y-4">
               {cartItems.map((item) => (
                 <Card key={item.externalId}>
-                  <CardContent className="p-6">
+                  <CardContent className="m-4">
                     <div className="flex gap-4">
                       <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-muted">
                         <Image src={item.image || "/placeholder.svg"} alt={item.name} fill className="object-cover" />
@@ -136,9 +136,9 @@ export default function CartPage() {
             <div className="space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Order Summary</CardTitle>
+                  <CardTitle className="mt-4">Order Summary</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 m-4">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
                     <span>GHS {subtotal.toFixed(2)}</span>
@@ -156,9 +156,9 @@ export default function CartPage() {
                     <span>Total</span>
                     <span>GHS {total.toFixed(2)}</span>
                   </div>
-                  {subtotal < 500 && (
+                  {subtotal < 5000 && (
                     <p className="text-sm text-muted-foreground">
-                      Add GHS {(500 - subtotal).toFixed(2)} more for free shipping
+                      Add GHS {(5000 - subtotal).toFixed(2)} more for free shipping
                     </p>
                   )}
                 </CardContent>
@@ -167,9 +167,9 @@ export default function CartPage() {
               {/* Payment Method */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Payment Method</CardTitle>
+                  <CardTitle className="mt-2">Payment Method</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="m-4">
                   <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="delivery" id="delivery" />
@@ -178,13 +178,13 @@ export default function CartPage() {
                         Pay on Delivery
                       </Label>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="card" id="card" />
-                      <Label htmlFor="card" className="flex items-center gap-2 cursor-pointer">
-                        <CreditCard className="h-4 w-4" />
-                        Credit/Debit Card
-                      </Label>
-                    </div>
+                    {/*<div className="flex items-center space-x-2 mute">*/}
+                    {/*  <RadioGroupItem value="card" id="card" />*/}
+                    {/*  <Label htmlFor="card" className="flex items-center gap-2 cursor-pointer">*/}
+                    {/*    <CreditCard className="h-4 w-4" />*/}
+                    {/*    Credit/Debit Card*/}
+                    {/*  </Label>*/}
+                    {/*</div>*/}
                   </RadioGroup>
                 </CardContent>
               </Card>
@@ -192,9 +192,9 @@ export default function CartPage() {
               {/* Delivery Information */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Delivery Information</CardTitle>
+                  <CardTitle className={"m-2"}>Delivery Information</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 m-4">
                   <div>
                     <Label htmlFor="address">Delivery Address</Label>
                     <Input id="address" placeholder="Enter your delivery address" className="mt-1" />
@@ -202,6 +202,10 @@ export default function CartPage() {
                   <div>
                     <Label htmlFor="phone">Phone Number</Label>
                     <Input id="phone" placeholder="Your contact number" className="mt-1" />
+                  </div>
+                    <div>
+                    <Label htmlFor="emal">Email</Label>
+                    <Input id="phone" placeholder="Your Email" className="mt-1" />
                   </div>
                   <div>
                     <Label htmlFor="notes">Special Instructions (Optional)</Label>

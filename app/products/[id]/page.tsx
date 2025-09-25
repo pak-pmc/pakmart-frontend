@@ -164,7 +164,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <Truck className="h-5 w-5 text-primary" />
-                    <span className="text-sm">Free Delivery on orders over GHS 5, 000</span>
+                    <span className="text-sm">Free Delivery on orders over GHS 5, 000 within Accra</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Shield className="h-5 w-5 text-primary" />
@@ -184,12 +184,12 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6">Specifications</h2>
           <Card>
-            <CardContent className="p-6">
+            <CardContent className="m-6">
               <div className="grid md:grid-cols-2 gap-4">
                 {Array.isArray(product.specifications) ? (
                   product.specifications.map((spec, idx) => (
                     <div key={idx} className="flex justify-between py-2">
-                      <span className="text-muted-foreground">{spec}</span>
+                      <span className="text-muted-foreground">- {spec}</span>
                     </div>
                   ))
                 ) : (
