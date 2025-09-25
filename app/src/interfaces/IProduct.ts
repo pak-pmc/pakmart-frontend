@@ -7,6 +7,7 @@ export interface IProduct {
     name: string;
     brand: string;
     categoryName: string;
+    subCategoryName: string;
     specifications: string[];
     features: string[];
     description: string;
