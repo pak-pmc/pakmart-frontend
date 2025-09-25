@@ -203,6 +203,10 @@ export default function CartPage() {
                     <Label htmlFor="phone">Phone Number</Label>
                     <Input id="phone" placeholder="Your contact number" className="mt-1" />
                   </div>
+                    <div>
+                    <Label htmlFor="emal">Email</Label>
+                    <Input id="phone" placeholder="Your Email" className="mt-1" />
+                  </div>
                   <div>
                     <Label htmlFor="notes">Special Instructions (Optional)</Label>
                     <Input id="notes" placeholder="Any special delivery instructions" className="mt-1" />
