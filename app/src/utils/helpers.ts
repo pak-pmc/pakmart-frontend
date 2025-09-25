@@ -44,3 +44,10 @@ export function truncateWords(text: string, wordLimit: number): string {
     }
     return words.slice(0, wordLimit).join(" ") + "...";
 }
+
+export function formatAmount(amount: number) {
+    return "₵ " + new Intl.NumberFormat('en-GH', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(amount);
+}

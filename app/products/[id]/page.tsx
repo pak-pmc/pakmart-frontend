@@ -8,6 +8,7 @@ import Link from "next/link"
 import { useCart } from "@/contexts/cart-context"
 import { useProduct } from "@/src/actions/GetProductAction"
 import {shareProduct} from "@/src/actions/ProductShareAction";
+import {formatAmount} from "@/src/utils/helpers";
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const externalId = params.id
@@ -89,7 +90,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 alt={product.name}
                 width={600}
                 height={600}
-                className="w-full h-96 object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-lg"
               />
             </div>
           </div>
@@ -98,7 +99,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <div className="space-y-6">
             <div>
               <p className="text-sm text-muted-foreground mb-2">{product.categoryName}</p>
-              <h1 className="text-3xl font-bold text-foreground mb-4">{product.name}</h1>
+              <h1 className="text-2xl font-bold text-foreground mb-4">{product.name}</h1>
 
               {/* Rating */}
               {/*<div className="flex items-center space-x-2 mb-4">*/}
@@ -118,7 +119,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
               {/* Price */}
               <div className="flex items-center space-x-3 mb-6">
-                <span className="text-3xl font-bold text-primary">GHS {displayPrice}</span>
+                <span className="text-3xl font-bold text-primary">{formatAmount(displayPrice)}</span>
                 {/*{originalPrice !== null && (*/}
                 {/*  <span className="text-xl text-muted-foreground line-through">{originalPrice}</span>*/}
                 {/*)}*/}

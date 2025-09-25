@@ -6,6 +6,7 @@ import { Star, ShoppingCart, Eye } from "lucide-react"
 import Link from "next/link"
 import { useCart } from "@/contexts/cart-context"
 import { IProduct } from "@/src/interfaces/IProduct"
+import {formatAmount} from "@/src/utils/helpers";
 
 interface ProductProps {
   product: IProduct
@@ -31,7 +32,7 @@ export function Product({ product }: ProductProps) {
           <img
             src={product.images?.[0]?.fileUrl || ""}
             alt={product.name}
-            className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-t-lg"
+            className="w-full h-50 object-cover rounded-t-lg"
           />
           {/*<Badge className="absolute top-4 left-4 bg-secondary text-secondary-foreground">*/}
           {/*  /!* Reserved for future badges if available *!/*/}
@@ -40,7 +41,7 @@ export function Product({ product }: ProductProps) {
 
         <div className="p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4">
           <div>
-            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 text-balance">
+            <h3 className="text-foreground group-hover:text-primary transition-colors line-clamp-2">
               {product.name}
             </h3>
 
@@ -72,7 +73,9 @@ export function Product({ product }: ProductProps) {
           <div className="flex items-center justify-between">
             <div className="space-y-1">
               <div className="flex items-center gap-1">
-                <span className="text-md sm:text-2xl font-bold text-primary">GHS {product.discountedPrice ?? product.unitPrice}</span>
+                <span className="text-md sm:text-1xl font-bold text-primary">
+                    {formatAmount(product.discountedPrice ?? product.unitPrice)}
+                </span>
                 {product.unitPrice && product.discountedPrice && product.unitPrice !== product.discountedPrice && (
                   <span className="text-sm text-muted-foreground line-through">GHS {product.unitPrice}</span>
                 )}
