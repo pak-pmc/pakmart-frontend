@@ -9,7 +9,7 @@ import {Header} from "@/components/header"
 import {useProducts} from "@/src/actions/GetProductsAction";
 
 export default function HomePage() {
-    const {products, isLoading, error} = useProducts();
+    const {products, isLoading, error} = useProducts(4);
     return (
         <div className="min-h-screen bg-background">
             <Header/>
