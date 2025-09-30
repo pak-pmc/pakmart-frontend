@@ -54,13 +54,13 @@ export function QuotationForm() {
 
                 <div className="max-w-4xl mx-auto">
                     <Card>
-                        <CardHeader>
+                        <CardHeader className="m-5">
                             <CardTitle className="text-2xl font-bold text-foreground">Project Details</CardTitle>
                             <p className="text-muted-foreground">
                                 Tell us about your project and we will prepare a detailed quotation for you.
                             </p>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="m-5">
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 {/* Contact Information */}
                                 <div className="grid md:grid-cols-2 gap-4">
