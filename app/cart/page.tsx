@@ -344,7 +344,7 @@ export default function CartPage() {
                                 )}
 
                                 <Button className="w-full mt-3" size="lg" type="submit" disabled={isPending}>
-                                    {isPending ? "Placing order..." : paymentMethod === "delivery" ? "Place Order (Pay on Delivery)" : "Proceed to Payment"}
+                                    {isPending ? "Placing order..." : paymentMethod === "delivery" ? "Place Order" : "Proceed to Payment"}
                                 </Button>
                             </form>
                         </div>
