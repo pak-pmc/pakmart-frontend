@@ -6,10 +6,10 @@ import {FeaturedProducts} from "@/components/featured-products"
 import {QuotationForm} from "@/components/quotation-form"
 import {Footer} from "@/components/footer"
 import {Header} from "@/components/header"
-import {useProducts} from "@/src/actions/GetProductsAction";
+import {useFeaturedProducts} from "@/src/actions/GetFeaturedProductsAction";
 
 export default function HomePage() {
-    const {products, isLoading, error} = useProducts(4);
+    const {products, isLoading, error} = useFeaturedProducts();
     return (
         <div className="min-h-screen bg-background">
             <Header/>
