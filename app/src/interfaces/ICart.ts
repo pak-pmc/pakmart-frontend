@@ -3,6 +3,7 @@ export interface ICart {
     name: string
     price: number
     image: string
+    isVariant: boolean
     quantity: number
     category?: object
 }

@@ -10,9 +10,8 @@ import {Input} from "@/components/ui/input"
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
 import {Separator} from "@/components/ui/separator"
 import {Badge} from "@/components/ui/badge"
-import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group"
 import {Label} from "@/components/ui/label"
-import {CreditCard, Minus, Plus, Trash2, Truck} from "lucide-react"
+import {Minus, Plus, Trash2} from "lucide-react"
 import Image from "next/image"
 import {Textarea} from "@/components/ui/textarea";
 import {IOrder} from "@/src/interfaces/IOrder";
@@ -30,7 +29,8 @@ export default function CartPage() {
         address: "",
         city: "",
         instructions: "",
-        products: []
+        products: [],
+        variants: []
     })
     const [hasSubmitted, setHasSubmitted] = useState(false)
 
@@ -58,7 +58,7 @@ export default function CartPage() {
         }, 0)
         : 0
 
-    const shipping = subtotal > 500 ? 0 : 25
+    const shipping = 0
     const tax = subtotal * 0.0
     const total = subtotal + shipping + tax
 
@@ -67,8 +67,15 @@ export default function CartPage() {
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         try {
-            const products = cartItems.map((item) => ({externalId: item.externalId, quantity: item.quantity}));
-            await sendOrder({...orderForm, products});
+            const products = cartItems.filter((item) => !item.isVariant).map((item) => ({
+                externalId: item.externalId,
+                quantity: item.quantity
+            }));
+            const variants = cartItems.filter((item) => item.isVariant).map((item) => ({
+                externalId: item.externalId,
+                quantity: item.quantity
+            }));
+            await sendOrder({...orderForm, products, variants});
             setOrderForm({
                 address: "",
                 city: "",
@@ -77,9 +84,13 @@ export default function CartPage() {
                 instructions: "",
                 lastName: "",
                 phoneNumber: "",
-                products: products
+                products: [],
+                variants: []
             })
             setHasSubmitted(true)
+            // setTimeout(() => {
+            //     cartContext.clearCart();
+            // }, 30000)
         } catch (err) {
             console.log("Error: ", err);
             setHasSubmitted(true)
