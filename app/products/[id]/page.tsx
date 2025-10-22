@@ -5,15 +5,18 @@ import {Button} from "@/components/ui/button"
 import {Card, CardContent} from "@/components/ui/card"
 import {ShoppingCart, Share2, Truck, Shield} from "lucide-react"
 import Link from "next/link"
-import {useCart} from "@/contexts/cart-context"
 import {useProduct} from "@/src/actions/GetProductAction"
 import {shareProduct} from "@/src/actions/ProductShareAction";
 import {formatAmount} from "@/src/utils/helpers";
+import {useState} from "react";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
+import {useAddToCartHandler} from "@/src/actions/AddToCartAction";
 
 export default function ProductDetailPage({params}: { params: { id: string } }) {
     const externalId = params.id
     const {product, isLoading, error} = useProduct(externalId)
-    const {addItem} = useCart();
+    const {handleAddToCart} = useAddToCartHandler()
+    const [selectedVariantIndex, setSelectedVariantIndex] = useState(0)
 
     const handleShare = async () => {
         if (product?.images) {
@@ -22,6 +25,14 @@ export default function ProductDetailPage({params}: { params: { id: string } }) 
                 imageUrl: product?.images[0].fileUrl || ''
             })
         }
+    }
+
+    const getPrice = () => {
+        if (product.hasVariants && product.variants?.[selectedVariantIndex]) {
+            const variant = product.variants[selectedVariantIndex]
+            return variant.unitPrice
+        }
+        return product.unitPrice
     }
 
     if (isLoading) {
@@ -49,20 +60,8 @@ export default function ProductDetailPage({params}: { params: { id: string } }) 
         )
     }
 
-    const displayPrice = product.discountedPrice ?? product.unitPrice
-    // const originalPrice = product.discountedPrice ? product.unitPrice : undefined
     const imageUrl = product.images && product.images.length > 0 ? product.images[0].fileUrl : ""
 
-    const handleAddToCart = () => {
-        addItem({
-            externalId: product.externalId,
-            name: product.name,
-            price: displayPrice,
-            image: imageUrl,
-            category: product.categoryName,
-            subCategoryName: product.subCategoryName,
-        } as any)
-    }
 
     return (
         <div className="min-h-screen bg-background">
@@ -100,30 +99,35 @@ export default function ProductDetailPage({params}: { params: { id: string } }) 
                     <div className="space-y-6">
                         <div>
                             <p className="text-sm text-muted-foreground mb-2">{product.subCategoryName}</p>
-                            <h1 className="text-2xl font-bold text-foreground mb-4">{product.name}</h1>
-
-                            {/* Rating */}
-                            {/*<div className="flex items-center space-x-2 mb-4">*/}
-                            {/*  <div className="flex">*/}
-                            {/*    {[...Array(5)].map((_, i) => (*/}
-                            {/*      <Star*/}
-                            {/*        key={i}*/}
-                            {/*        className={`h-5 w-5 ${*/}
-                            {/*          i < Math.floor(product.rating ?? 0) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"*/}
-                            {/*        }`}*/}
-                            {/*      />*/}
-                            {/*    ))}*/}
-                            {/*  </div>*/}
-                            {/*  <span className="text-sm font-medium">{product.rating ?? 0}</span>*/}
-                            {/*  <span className="text-sm text-muted-foreground">({product.reviewCount ?? 0} reviews)</span>*/}
-                            {/*</div>*/}
+                            <h1 className="text-1xl font-bold text-foreground mb-4">{product.name}</h1>
 
                             {/* Price */}
-                            <div className="flex items-center space-x-3 mb-6">
-                                <span className="text-3xl font-bold text-primary">{formatAmount(displayPrice)}</span>
-                                {/*{originalPrice !== null && (*/}
-                                {/*  <span className="text-xl text-muted-foreground line-through">{originalPrice}</span>*/}
-                                {/*)}*/}
+                            {product.hasVariants && product.variants && product.variants.length > 0 && (
+                                <div className="space-y-2">
+                                    <Select
+                                        value={String(selectedVariantIndex)}
+                                        onValueChange={(value) => setSelectedVariantIndex(Number(value))}>
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Choose a variant"/>
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {product.variants.map((variant, index) => (
+                                                <SelectItem key={index} value={String(index)}>
+                                                    {variant.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            )}
+
+                            <div className="flex items-center justify-between pt-4">
+                                <div className="space-y-3">
+                                    <div className="flex items-center gap-1">
+                                        <span
+                                            className="text-md md:text-2xl font-bold text-primary">{formatAmount(getPrice())}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -148,13 +152,11 @@ export default function ProductDetailPage({params}: { params: { id: string } }) 
 
                         {/* Actions */}
                         <div className="flex gap-4">
-                            <Button size="lg" className="flex-1" onClick={handleAddToCart}>
+                            <Button size="lg" className="flex-1"
+                                    onClick={() => handleAddToCart({product, selectedVariantIndex})}>
                                 <ShoppingCart className="h-5 w-5 mr-2"/>
                                 Add to Cart
                             </Button>
-                            {/*<Button variant="outline" size="lg">*/}
-                            {/*  <Heart className="h-5 w-5" />*/}
-                            {/*</Button>*/}
                             <Button variant="outline" size="lg" onClick={handleShare}>
                                 <Share2 className="h-5 w-5"/>
                             </Button>
@@ -167,7 +169,7 @@ export default function ProductDetailPage({params}: { params: { id: string } }) 
                                     <div className="flex items-center gap-3">
                                         <Truck className="h-5 w-5 text-primary"/>
                                         <span
-                                            className="text-sm">Free Delivery on orders over GHS 5, 000 within Accra</span>
+                                            className="text-sm">Free Delivery on orders over GHS 20, 000 within Accra</span>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <Shield className="h-5 w-5 text-primary"/>

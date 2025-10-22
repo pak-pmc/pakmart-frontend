@@ -1,5 +1,6 @@
 import {ICategory} from "@/src/interfaces/ICategory";
 import {IFile} from "@/src/interfaces/IFile";
+import {IProductVariant} from "@/src/interfaces/IProductVariant";
 
 export interface IProduct {
     externalId: string;
@@ -17,6 +18,8 @@ export interface IProduct {
     stock: number;
     rating?: number;
     reviewCount?: any;
+    hasVariants: boolean;
     images?: IFile[];
     category?: ICategory;
+    variants: IProductVariant[];
 }

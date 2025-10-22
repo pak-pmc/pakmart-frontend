@@ -7,6 +7,7 @@ export interface IOrder {
     "city": string,
     "instructions": string,
     "products": IOrderProduct[]
+    "variants": IOrderProduct[]
 }
 
 export type IOrderProduct = { externalId: string, quantity: number }
