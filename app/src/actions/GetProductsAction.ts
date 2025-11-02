@@ -1,17 +1,20 @@
-import {http} from "@/src/utils/http";
-import {useQuery} from "@tanstack/react-query";
-import {response} from "@/src/utils/helpers";
-import type {IProduct} from "@/src/interfaces/IProduct";
-import {IMeta} from "@/src/interfaces/IMeta";
+import { http } from "@/src/utils/http";
+import { useQuery } from "@tanstack/react-query";
+import { response } from "@/src/utils/helpers";
+import type { IProduct } from "@/src/interfaces/IProduct";
+import { IMeta } from "@/src/interfaces/IMeta";
 
-// Low-level API call used by both the hook and imperative flows
 export async function fetchProductsApi(perPage: number = 50, page: number = 1, otherQueryParams: string = '') {
     const qp = new URLSearchParams();
     qp.set('perPage', String(perPage));
     qp.set('page', String(page));
-    // otherQueryParams is expected to be a pre-formatted string like "filters=..." or "".
-    const suffix = otherQueryParams ? `&${otherQueryParams}` : '';
-    return await http().get(`/v1/products?${qp.toString()}${suffix}`);
+
+    if (otherQueryParams) {
+        const extra = new URLSearchParams(otherQueryParams);
+        extra.forEach((value, key) => qp.append(key, value));
+    }
+
+    return await http().get(`/v1/products?${qp.toString()}`);
 }
 
 export const useProducts = (perPage: number = 50, page:number = 1, otherQueryParams:string = '') => {
